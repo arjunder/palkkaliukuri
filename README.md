@@ -10,7 +10,7 @@ Sovellus sisältää:
 
 ## Käyttö
 
-Avaa `palkkaliukuri_2025.html` selaimessa.  
+Avaa `index.html` selaimessa.  
 Ei vaadi asennuksia, palvelinta tai kirjastoja.
 
 ## Rakenne
