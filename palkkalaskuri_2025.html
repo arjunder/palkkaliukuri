@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Palkkaliukuri 2025 – nettopalkka & verot (Suomi)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --card: #020617;
+      --card-alt: #040718;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+
+    .app {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2) 0, transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.22) 0, transparent 65%),
+                  linear-gradient(145deg, #020617 0, #020617 40%, #020617 100%);
+      border-radius: 30px;
+      padding: 20px 22px 22px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header h1 span.badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(15, 118, 110, 0.4);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #a5f3fc;
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      white-space: nowrap;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tagline {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 260px;
+      text-align: right;
+    }
+
+    .tagline span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .theme-toggle {
+      margin-top: 8px;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: radial-gradient(circle at top right, rgba(148, 163, 184, 0.3) 0, transparent 40%),
+                  var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2) 0, transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .controls-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .field-label-row label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .field-label-row span.value {
+      font-size: 12px;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+	/* --- SLIDER: yhteinen perusmuoto (track) --- */
+	input[type="range"] {
+	  width: 100%;
+	  -webkit-appearance: none;
+	  appearance: none;
+	  height: 8px;
+	  background: #d1d5db;          /* vaalea harmaa track */
+	  border-radius: 999px;
+	  outline: none;
+	  margin-top: 8px;
+	}
+
+	/* --- Peruskapseli (neutraali, toimii light-teemassa) --- */
+	input[type="range"]::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 38px;
+	  height: 22px;
+	  border-radius: 999px;          /* KAPSELI */
+	  background: #ffffff;           /* valkoinen */
+	  border: 1px solid #cbd5e1;
+	  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.16);
+	  cursor: pointer;
+	  transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	input[type="range"]::-moz-range-thumb {
+	  -moz-appearance: none;
+	  appearance: none;
+	  width: 38px;
+	  height: 22px;
+	  border-radius: 999px;
+	  background: #ffffff;
+	  border: 1px solid #cbd5e1;
+	  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.16);
+	  cursor: pointer;
+	  transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	input[type="range"]:active::-webkit-slider-thumb,
+	input[type="range"]:active::-moz-range-thumb {
+	  transform: scale(1.05);
+	  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
+	}
+
+	/* --- Tumma teema: yliajetaan vain värit --- */
+	html[data-theme="dark"] input[type="range"] {
+	  background: #1e293b;
+	}
+
+	html[data-theme="dark"] input[type="range"]::-webkit-slider-thumb {
+	  background: linear-gradient(135deg, #bae6fd 0, #38bdf8 40%, #0ea5e9 100%);
+	  border: 1px solid rgba(148, 163, 184, 0.4);
+	  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.35);
+	}
+
+	html[data-theme="dark"] input[type="range"]::-moz-range-thumb {
+	  background: linear-gradient(135deg, #bae6fd 0, #38bdf8 40%, #0ea5e9 100%);
+	  border: 1px solid rgba(148, 163, 184, 0.4);
+	  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.35);
+	}
+
+    .sub-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .inline-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .inline-fields {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    select,
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    select:focus,
+    input[type="number"]:focus,
+    input[type="text"]:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+
+    .small-hint {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      background: rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+        transform 0.08s ease;
+    }
+
+    .chip span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.8);
+    }
+
+    .chip.active {
+      color: #e0f2fe;
+      border-color: rgba(56, 189, 248, 0.9);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), rgba(15, 23, 42, 0.95));
+      transform: translateY(-0.5px);
+    }
+
+    .chip.active span.dot {
+      background: #38bdf8;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.9);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .tiny-button {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .tiny-button:hover {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e5e7eb;
+    }
+
+    /* Oikea puoli */
+
+    .results-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(31, 41, 55, 0.7) 0, transparent 55%),
+                  var(--card-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 10px 12px 11px;
+      min-height: 115px;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card-body {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .big-number {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .big-number span.unit {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .small-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 11px;
+      color: var(--muted);
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .small-row strong {
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    .bar-track {
+      margin-top: 8px;
+      width: 100%;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at left, rgba(15, 23, 42, 0.9), #020617);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .bar-net,
+    .bar-tax {
+      height: 100%;
+      transition: width 0.2s ease-out;
+    }
+
+    .bar-net {
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+    }
+
+    .bar-tax {
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.9),
+                                         rgba(249, 115, 22, 0.9));
+    }
+
+	/* Tuliefekti korkeille tuloille (ylin 10 %) */
+
+	.bar-net.fire {
+	  position: relative;
+	  background: linear-gradient(90deg, #f97316, #ef4444, #facc15);
+	  box-shadow:
+		0 0 12px rgba(248, 113, 113, 0.6),
+		0 0 22px rgba(234, 179, 8, 0.5);
+	  animation: flame-pulse 1.1s infinite alternate ease-in-out;
+	  overflow: hidden;
+	}
+
+	/* hehkuva liekkikerros palkin päällä */
+	.bar-net.fire::after {
+	  content: "";
+	  position: absolute;
+	  left: -10%;
+	  right: -10%;
+	  top: -80%;
+	  bottom: -20%;
+	  background:
+		radial-gradient(circle at 10% 100%, rgba(248, 113, 113, 0.80), transparent 60%),
+		radial-gradient(circle at 40% 100%, rgba(251, 146, 60, 0.70), transparent 60%),
+		radial-gradient(circle at 75% 100%, rgba(234, 179, 8, 0.75), transparent 60%);
+	  mix-blend-mode: screen;
+	  opacity: 0.9;
+	  pointer-events: none;
+	  animation: flame-wobble 0.9s infinite alternate ease-in-out;
+	}
+
+	@keyframes flame-pulse {
+	  0%   { filter: brightness(1);    transform: translateY(0); }
+	  100% { filter: brightness(1.10); transform: translateY(-0.5px); }
+	}
+
+	@keyframes flame-wobble {
+	  0%   { transform: translateX(0); }
+	  50%  { transform: translateX(1px); }
+	  100% { transform: translateX(-1px); }
+	}
+
+    .tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .tag.mediaani {
+      border-color: rgba(148, 163, 184, 0.9);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .tag.yli {
+      border-color: rgba(249, 115, 22, 0.85);
+      color: #fed7aa;
+      background: rgba(124, 45, 18, 0.65);
+    }
+
+    .tag.top {
+      border-color: rgba(250, 204, 21, 0.9);
+      color: #fef9c3;
+      background: radial-gradient(circle at top, rgba(234, 179, 8, 0.6),
+                                            rgba(120, 53, 15, 0.6));
+    }
+
+    .tag.poverty {
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.85);
+    }
+
+    .info-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .info-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 0;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .info-box {
+      margin-top: 7px;
+      padding: 7px 8px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 11px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4px 10px;
+    }
+
+    @media (max-width: 720px) {
+      .info-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .info-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .info-line span:first-child {
+      color: var(--muted);
+    }
+
+    .note {
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Ammattikortti */
+
+    #jobsBody ul {
+      margin: 4px 0 0;
+      padding-left: 16px;
+      list-style: disc;
+    }
+
+    #jobsBody li {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    #jobsBody li span.level {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* Vertailukortin värit */
+
+    #compareCard.compare-up-small {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 14px rgba(34,197,94,0.3);
+    }
+
+    #compareCard.compare-up-big {
+      border-color: rgba(34, 197, 94, 0.95);
+      box-shadow: 0 0 20px rgba(34,197,94,0.45);
+      background: radial-gradient(circle at top left, rgba(22,163,74,0.4), rgba(15,23,42,0.95));
+    }
+
+    #compareCard.compare-down {
+      border-color: rgba(248,113,113,0.9);
+      box-shadow: 0 0 18px rgba(248,113,113,0.45);
+      background: radial-gradient(circle at top left, rgba(127,29,29,0.5), rgba(15,23,42,0.95));
+    }
+
+	/* LIGHT-TEEMA OVERRIDET */
+
+	html[data-theme="light"] body {
+	  background: radial-gradient(circle at top, #e5e7eb 0, #f9fafb 40%, #e5e7eb 100%);
+	  color: #0f172a;
+	}
+
+	html[data-theme="light"] .app {
+	  background: linear-gradient(145deg, #ffffff 0, #e5e7eb 100%);
+	  border-color: rgba(148, 163, 184, 0.4);
+	}
+
+	/* Header-badge ja tekstit */
+	html[data-theme="light"] header h1 span.badge {
+	  background: #e2f3f3;
+	  color: #065f46;
+	  border-color: #a7f3d0;
+	}
+
+	html[data-theme="light"] header p,
+	html[data-theme="light"] .small-hint,
+	html[data-theme="light"] .note,
+	html[data-theme="light"] .tagline {
+	  color: #6b7280;
+	}
+
+	/* Paneelit ja kortit vaaleiksi */
+	html[data-theme="light"] .panel {
+	  background: #ffffff;
+	  border-color: #e5e7eb;
+	}
+
+	html[data-theme="light"] .panel::before {
+	  background: radial-gradient(circle at top left, rgba(45, 212, 191, 0.06) 0, transparent 55%);
+	}
+
+	html[data-theme="light"] .card {
+	  background: #f9fafb;
+	  border-color: #e5e7eb;
+	}
+
+	html[data-theme="light"] .card-title {
+	  color: #6b7280;
+	}
+
+	html[data-theme="light"] .small-row {
+	  color: #6b7280;
+	}
+
+	html[data-theme="light"] .small-row strong {
+	  color: #111827;
+	}
+
+	/* Ammattikortin lista luettavaksi */
+	html[data-theme="light"] #jobsBody li {
+	  color: #374151;
+	  opacity: 1;
+	}
+
+	html[data-theme="light"] #jobsBody li span.level {
+	  color: #6b7280;
+	}
+
+	/* Inputit & selectit */
+	html[data-theme="light"] select,
+	html[data-theme="light"] input[type="number"],
+	html[data-theme="light"] input[type="text"] {
+	  background: #ffffff;
+	  color: #111827;
+	  border-color: #d1d5db;
+	}
+
+	html[data-theme="light"] select:focus,
+	html[data-theme="light"] input[type="number"]:focus,
+	html[data-theme="light"] input[type="text"]:focus {
+	  border-color: #0d9488;
+	  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.4);
+	}
+
+	/* Sliderin nappi */
+	html[data-theme="light"] input[type="range"] {
+	  background: #e5e7eb;
+	}
+
+	html[data-theme="light"] input[type="range"]::-webkit-slider-thumb,
+	html[data-theme="light"] input[type="range"]::-moz-range-thumb {
+	  background: #ffffff;
+	  border: 1px solid #cbd5e1;
+	  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.16);
+	}
+
+	/* Slider-arvon teksti tummemmaksi vaaleassa teemassa */
+	html[data-theme="light"] .field-label-row span.value {
+	  color: #111827;
+	  font-weight: 500;
+	}
+
+	/* Progress-bar – nettopuoli vihertävä, veropuoli pehmeä */
+	html[data-theme="light"] .bar-track {
+	  background: #e5e7eb;
+	  border-color: #d1d5db;
+	}
+
+	html[data-theme="light"] .bar-net {
+	  background: linear-gradient(90deg, #22c55e, #a3e635);
+	}
+
+	html[data-theme="light"] .bar-tax {
+	  background: linear-gradient(90deg, #fed7aa, #fee2e2);
+	}
+
+	/* Chipit – neutraalit vaaleassa teemassa */
+	html[data-theme="light"] .chip {
+	  background: #f9fafb;
+	  border-color: #d1d5db;
+	  color: #374151;
+	}
+
+	html[data-theme="light"] .chip span.dot {
+	  background: #9ca3af;
+	  box-shadow: none;
+	}
+
+	html[data-theme="light"] .chip.active {
+	  background: #e2f3f3;
+	  border-color: #0f766e;
+	  color: #0f172a;
+	}
+
+	html[data-theme="light"] .chip.active span.dot {
+	  background: #0f766e;
+	  box-shadow: none;
+	}
+
+	/* Info-boksi */
+	html[data-theme="light"] .info-box {
+	  background: #f3f4f6;
+	  border-color: #d1d5db;
+	}
+
+	/* Tagit (MEDIAANI, YLIN 10 %, KÖYHYYSRISKI) */
+	html[data-theme="light"] .tag.mediaani {
+	  background: #eef2ff;
+	  border-color: #c7d2fe;
+	  color: #312e81;
+	}
+
+	html[data-theme="light"] .tag.yli {
+	  background: #fff7ed;
+	  border-color: #fed7aa;
+	  color: #7c2d12;
+	}
+
+	html[data-theme="light"] .tag.top {
+	  background: linear-gradient(135deg, #fef9c3, #fde68a);
+	  border-color: #facc15;
+	  color: #78350f;
+	}
+
+	html[data-theme="light"] .tag.poverty {
+	  background: #fee2e2;
+	  border-color: #fecaca;
+	  color: #7f1d1d;
+	}
+
+	/* Teemanappi */
+	html[data-theme="light"] .theme-toggle {
+	  background: #e5e7eb;
+	  color: #111827;
+	  border-color: #cbd5e1;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>
+          Palkkaliukuri 2025
+          <span class="badge">Suomi · verot & nettopalkka</span>
+        </h1>
+        <p>
+          Säädä bruttopalkkaa liu’uttamalla. Laskuri arvioi nettopalkan ja veroprosentin
+          Suomen vuoden 2025 veroperusteilla (karkeasti).
+        </p>
+      </div>
+      <div class="tagline">
+        <span>Vinkki:</span> syötä vasemmalle myös oma nykyinen bruttopalkkasi –
+        näet miten palkankorotus muuttuisi netoksi.
+        <div>
+          <button id="themeToggle" class="theme-toggle">🌙 Tumma</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- VASEN: ohjaimet -->
+      <section class="panel">
+        <div class="panel-inner">
+          <h2>Syötteet</h2>
+          <div class="controls-grid">
+            <!-- Brutto + slider -->
+            <div class="field-group">
+              <div class="field-label-row">
+                <label for="salaryRange">Uusi / tarkasteltava bruttopalkka / kk</label>
+                <span class="value" id="salaryRangeValue">–</span>
+              </div>
+              <input
+                type="range"
+                id="salaryRange"
+                min="1500"
+                max="12000"
+                step="50"
+                value="3500"
+              />
+              <div class="sub-ticks">
+                <span>1 500 €</span>
+                <span>6 000 €</span>
+                <span>12 000 €</span>
+              </div>
+            </div>
+
+            <!-- Nykyinen brutto vertailuun -->
+            <div class="field-group">
+              <div class="field-label-row">
+                <label for="currentSalary">Nykyinen bruttopalkkani / kk (vertailuun)</label>
+                <button type="button" id="clearCurrent" class="tiny-button">Tyhjennä</button>
+              </div>
+              <input
+                type="number"
+                id="currentSalary"
+                min="0"
+                step="10"
+                placeholder="esim. 2700"
+              />
+            </div>
+
+            <!-- TyEL / ikä -->
+            <div class="field-group">
+              <div class="field-label-row">
+                <label for="ageGroup">Ikä / TyEL %</label>
+              </div>
+              <select id="ageGroup">
+                <option value="young">17–52 v (TyEL 7,15 %)</option>
+                <option value="middle">53–62 v (TyEL 8,65 %)</option>
+                <option value="old">63–67 v (TyEL 7,15 %)</option>
+              </select>
+              <div class="small-hint">
+                Vaikuttaa työntekijän eläkemaksuun (TyEL). Työttömyys- ja sairausvakuutusmaksut oletettu samoiksi.
+              </div>
+            </div>
+
+            <!-- Kunta + kirkko -->
+            <div class="inline-fields">
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="municipalitySelect">Asuinkunta (kunnallisvero 2025)</label>
+                </div>
+                <select id="municipalitySelect">
+                  <option value="keski">Keskimääräinen kunta</option>
+                  <option value="Helsinki">Helsinki</option>
+                  <option value="Espoo">Espoo</option>
+                  <option value="Vantaa">Vantaa</option>
+                  <option value="Turku">Turku</option>
+                  <option value="Tampere">Tampere</option>
+                  <option value="Oulu">Oulu</option>
+                  <option value="Lieto">Lieto</option>
+                  <option value="oma">Oma %</option>
+                </select>
+                <div class="field-group hidden" id="municipalCustomRow" style="margin-top:4px;">
+                  <div class="field-label-row">
+                    <label for="municipalCustom">Oma kunnallisvero %</label>
+                    <span class="muted" style="font-size:11px;">esim. 7,5</span>
+                  </div>
+                  <input
+                    type="number"
+                    id="municipalCustom"
+                    step="0.01"
+                    min="0"
+                    max="25"
+                    placeholder="kunnallisvero %"
+                  />
+                </div>
+              </div>
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label>Kuulun kirkkoon</label>
+                </div>
+                <div class="radio-row" id="churchRow">
+                  <div class="chip active" data-church="none">
+                    <span class="dot"></span> En kuulu
+                  </div>
+                  <div class="chip" data-church="evlut">
+                    <span class="dot"></span> Ev.lut
+                  </div>
+                  <div class="chip" data-church="ortho">
+                    <span class="dot"></span> Ort.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Liitto / kassa -->
+            <div class="field-group">
+              <div class="field-label-row">
+                <label>Liitto ja työttömyyskassa</label>
+              </div>
+              <div class="radio-row" id="membershipRow">
+                <div class="chip active" data-membership="none">
+                  <span class="dot"></span> En kuulu
+                </div>
+                <div class="chip" data-membership="fund">
+                  <span class="dot"></span> Vain kassa
+                </div>
+                <div class="chip" data-membership="unionFund">
+                  <span class="dot"></span> Liitto + kassa
+                </div>
+              </div>
+              <div class="inline-fields" style="margin-top:6px;">
+                <div class="field-group hidden" id="fundRow">
+                  <div class="field-label-row">
+                    <label for="fundFee">Työttömyyskassa €/kk</label>
+                    <span class="muted" style="font-size:11px;">esim. 8 €</span>
+                  </div>
+                  <input
+                    type="number"
+                    id="fundFee"
+                    step="0.5"
+                    min="0"
+                    value="8"
+                  />
+                </div>
+                <div class="field-group hidden" id="unionRow">
+                  <div class="field-label-row">
+                    <label for="unionFee">Liitto + kassa €/kk</label>
+                    <span class="muted" style="font-size:11px;">esim. 30 €</span>
+                  </div>
+                  <input
+                    type="number"
+                    id="unionFee"
+                    step="1"
+                    min="0"
+                    value="30"
+                  />
+                </div>
+              </div>
+              <div class="small-hint">
+                Vuodesta 2026 lähtien liitto- ja kassamaksuja ei saa vähentää verotuksessa – koko summa pois nettopalkasta.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OIKEA: tulokset -->
+      <section class="panel">
+        <div class="panel-inner">
+          <h2>Tulokset</h2>
+          <div class="results-column">
+            <!-- Nettopalkka -->
+            <div class="card" id="netCard">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Arvio nettopalkasta</div>
+                  <div class="big-number" id="netMonthlyDisplay">
+                    – <span class="unit">€/kk</span>
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="card-title">Veroprosentti (valtion + kunta + kirkko)</div>
+                  <div class="big-number" id="taxRateDisplay" style="font-size:18px;">
+                    – <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bar-track">
+                <div class="bar-net" id="barNet" style="width:60%;"></div>
+                <div class="bar-tax" id="barTax" style="width:40%;"></div>
+              </div>
+              <div class="small-row" style="margin-top:4px;">
+                <span>
+                  Nettopalkka / vuosi:
+                  <strong id="netYearlyDisplay">–</strong>
+                </span>
+                <span>
+                  Verot ja maksut yhteensä (arvio):
+                  <strong id="totalRateDisplay">– %</strong>
+                </span>
+              </div>
+              <div class="small-row">
+                <span>Bruttopalkka (arvio) tunti</span>
+                <span><strong id="hourlyGrossDisplay">–</strong> €/h</span>
+              </div>
+              <div class="small-row">
+                <span>Nettopalkka (arvio) tunti</span>
+                <span><strong id="hourlyNetDisplay">–</strong> €/h</span>
+              </div>
+              <div class="small-row">
+                <span class="muted">
+                  Valtionvero + kunnallis- ja kirkollisvero + TyEL + työttömyys + sairausvakuutus (+ liitto/kassa, jos valittuna).
+                </span>
+              </div>
+
+              <div style="margin-top:6px;">
+                <div class="info-toggle" id="infoToggle">
+                  <div class="info-icon">i</div>
+                  <span> Näytä erittely</span>
+                </div>
+                <div class="info-box hidden" id="infoBox">
+                  <div class="info-grid">
+                    <div class="info-line">
+                      <span>Valtionvero / v</span>
+                      <span id="infoStateTax">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>Kunnallisvero / v</span>
+                      <span id="infoMunicipalTax">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>Kirkollisvero / v</span>
+                      <span id="infoChurchTax">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>TyEL / v</span>
+                      <span id="infoTyel">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>Työttömyys / v</span>
+                      <span id="infoUnemp">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>Sairausvakuutus / v</span>
+                      <span id="infoHealth">–</span>
+                    </div>
+                    <div class="info-line">
+                      <span>Liitto/kassa / v</span>
+                      <span id="infoMembership">–</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bruttotulot & tuloryhmä -->
+            <div class="card" id="grossCard">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Bruttotulot</div>
+                  <div class="big-number" id="grossYearlyDisplay">
+                    – <span class="unit">€/v</span>
+                  </div>
+                </div>
+                <div id="incomeTag" class="tag mediaani">MEDIAANI ≈ 3 564 €/kk</div>
+              </div>
+              <div class="small-row">
+                <span>Suhde mediaanipalkkaan</span>
+                <span><strong id="medianRatioDisplay">– x</strong></span>
+              </div>
+              <div class="small-row">
+                <span>Tuloryhmä (karkeasti)</span>
+                <span><strong id="incomeGroupDisplay">–</strong></span>
+              </div>
+              <div class="small-row">
+                <span class="muted">
+                  Mediaani (kokoaikaiset 2023) ≈ 3 564 €/kk, ylin 10 % ≥ 5 972 €/kk. Köyhyysriskiraja ≈ 60 % mediaanitulosta ≈ 2 100 €/kk.
+                </span>
+              </div>
+            </div>
+
+            <!-- Ammattiesimerkit -->
+            <div class="card" id="jobsCard">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Esimerkkiammatteja tällä palkkatasolla</div>
+                  <div class="small-row">
+                    <span>Palkkataso (brutto / kk)</span>
+                    <span><strong id="jobBracketLabel">–</strong></span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body" id="jobsBody">
+                <ul id="jobsList"></ul>
+                <div class="small-hint" style="margin-top:4px;">
+                  Palkat ovat suuntaa-antavia esimerkkejä Tilastokeskuksen ja työmarkkinakäytännön pohjalta. Todelliset ansiot vaihtelevat kokemuksen, alueen, työpaikan ja henkilön mukaan.
+                </div>
+              </div>
+            </div>
+
+            <!-- Liitto / kassa vaikutus (näkyy vain jos jäsenyyttä) -->
+            <div class="card hidden" id="unionCard">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Liitto & kassa – vaikutus nettopalkkaan</div>
+                  <div class="big-number" id="netAfterMembershipDisplay">
+                    – <span class="unit">€/kk</span>
+                  </div>
+                </div>
+                <div class="card-title" id="membershipLabel">–</div>
+              </div>
+              <div class="small-row">
+                <span>Netto ilman liittoa/kassaa</span>
+                <span><strong id="netBeforeMembershipDisplay">– €/kk</strong></span>
+              </div>
+              <div class="small-row">
+                <span>Nykyinen jäsenyys maksaa</span>
+                <span><strong id="membershipMonthCostDisplay">– €/kk</strong></span>
+              </div>
+              <div class="small-row">
+                <span>Ero vuodessa (nettona)</span>
+                <span><strong id="membershipYearDiffDisplay">– €/v</strong></span>
+              </div>
+            </div>
+
+            <!-- Vertailu nykyiseen bruttoon -->
+            <div class="card hidden" id="compareCard">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Ero nykyiseen nettopalkkaan</div>
+                  <div class="big-number" id="deltaNetMonthlyDisplay">
+                    – <span class="unit">€/kk</span>
+                  </div>
+                  <div class="card-title" id="compareSubtitle" style="margin-top:2px;"></div>
+                </div>
+                <div class="card-title" id="compareLabel">–</div>
+              </div>
+              <div class="small-row">
+                <span>Bruttoero / kk</span>
+                <span><strong id="deltaGrossMonthlyDisplay">– €/kk</strong></span>
+              </div>
+              <div class="small-row">
+                <span>Nettoero / vuosi</span>
+                <span><strong id="deltaNetYearlyDisplay">– €/v</strong></span>
+              </div>
+              <div class="small-row">
+                <span>Palkankorotuksen veroaste (arvio)</span>
+                <span><strong id="marginalTaxDisplay">– %</strong></span>
+              </div>
+              <div class="small-hint" id="marginalHelpText" style="margin-top:4px;">
+                –
+              </div>
+            </div>
+
+            <div class="note">
+              Laskuri käyttää vuoden 2025 valtion tuloveroasteikkoa, kunnallis- ja kirkollisveroja
+              sekä työntekijän TyEL-, työttömyys- ja sairausvakuutusmaksuja
+              yksinkertaistetulla mallilla. Vähennyksiä (perus- ja ansiotulovähennys ym.) ei
+              mallinneta täydellisesti, joten tulos on suuntaa-antava, ei virallinen verolaskelma.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const UNEMP_RATE = 0.0059;
+    const HEALTH_RATE = 0.019;
+    const TULONHANKKIMIS_VAHENNYS = 750;
+    const MEDIAN_MONTHLY = 3564;
+    const TOP_DECILE_MONTHLY = 5972;
+
+    const MUNICIPAL_RATES = {
+      keski: 0.0754,
+      Helsinki: 0.053,
+      Espoo: 0.053,
+      Vantaa: 0.064,
+      Turku: 0.071,
+      Tampere: 0.076,
+      Oulu: 0.081,
+      Lieto: 0.071,
+      oma: null
+    };
+
+    const CHURCH_DEFAULT = { evlut: 0.014, ortho: 0.018 };
+
+    const CHURCH_BY_MUNICIPAL = {
+      Turku: { evlut: 0.012, ortho: 0.0175 },
+      Vantaa: { evlut: 0.01, ortho: 0.018 },
+      Lieto: { evlut: 0.013, ortho: 0.0175 }
+    };
+
+    /* TEEMA + URL-APUFUNKTIOT */
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    }
+
+    function initTheme(toggleEl) {
+      const saved = localStorage.getItem("theme") || "dark";
+      applyTheme(saved);
+      if (toggleEl) {
+        toggleEl.textContent = saved === "dark" ? "🌙 Tumma" : "☀️ Vaalea";
+      }
+    }
+
+    function readStateFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        salary: params.get("salary"),
+        current: params.get("current"),
+        age: params.get("age"),
+        muni: params.get("muni"),
+        muniCustom: params.get("muniCustom"),
+        church: params.get("church"),
+        membership: params.get("membership"),
+        fund: params.get("fund"),
+        union: params.get("union")
+      };
+    }
+
+    function updateURLFromState(state) {
+      const url = new URL(window.location);
+      const params = url.searchParams;
+
+      function setOrDelete(key, value) {
+        if (value === null || value === undefined || value === "" || value === 0) {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      }
+
+      setOrDelete("salary", state.salary);
+      setOrDelete("current", state.current);
+      setOrDelete("age", state.age);
+      setOrDelete("muni", state.muni);
+      setOrDelete("muniCustom", state.muniCustom);
+      setOrDelete("church", state.church);
+      setOrDelete("membership", state.membership);
+      setOrDelete("fund", state.fund);
+      setOrDelete("union", state.union);
+
+      history.replaceState(null, "", url);
+    }
+
+    function getTyelRate(ageGroup) {
+      if (ageGroup === "middle") return 0.0865;
+      return 0.0715;
+    }
+
+    function euro(n) {
+      if (!isFinite(n)) return "–";
+      return (
+        n.toLocaleString("fi-FI", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        }) + " €"
+      );
+    }
+
+    function euroPlain(n) {
+      if (!isFinite(n)) return "–";
+      return n.toLocaleString("fi-FI", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }) + " €";
+    }
+
+    function euro2(n) {
+      if (!isFinite(n)) return "–";
+      return (
+        n.toLocaleString("fi-FI", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }) + " €"
+      );
+    }
+
+    function pct(n, decimals = 1) {
+      if (!isFinite(n)) return "–";
+      return (
+        n.toLocaleString("fi-FI", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + " %"
+      );
+    }
+
+    function stateTax2025(t) {
+      if (t <= 21200) {
+        return Math.max(0, 0.1264 * (t - 0));
+      } else if (t <= 31500) {
+        return 2680 + 0.19 * (t - 21200);
+      } else if (t <= 52100) {
+        return 4637 + 0.3025 * (t - 31500);
+      } else if (t <= 88200) {
+        return 10868 + 0.34 * (t - 52100);
+      } else if (t <= 150000) {
+        return 23142 + 0.4175 * (t - 88200);
+      } else {
+        return 49944 + 0.4425 * (t - 150000);
+      }
+    }
+
+    function getMunicipalRate(key, custom) {
+      if (key === "oma") {
+        const v = parseFloat((custom || "").toString().replace(",", "."));
+        if (!isFinite(v) || v < 0) return MUNICIPAL_RATES.keski;
+        return v / 100;
+      }
+      return MUNICIPAL_RATES[key] ?? MUNICIPAL_RATES.keski;
+    }
+
+    function getChurchRate(muniKey, church) {
+      if (church === "none") return 0;
+      const spec = CHURCH_BY_MUNICIPAL[muniKey];
+      const table = spec || CHURCH_DEFAULT;
+      return church === "evlut" ? table.evlut : table.ortho;
+    }
+
+    function classifyIncome(monthlyGross) {
+      if (!monthlyGross || monthlyGross <= 0) {
+        return {
+          ratio: 0,
+          groupShort: "–",
+          tagText: "MEDIAANI",
+          tagClass: "tag mediaani",
+          inTopDecile: false
+        };
+      }
+      const ratio = monthlyGross / MEDIAN_MONTHLY;
+      const inTopDecile = monthlyGross >= TOP_DECILE_MONTHLY;
+      let groupShort;
+
+      if (ratio < 0.6) {
+        groupShort = "Alle köyhyysriskirajan (~60 % mediaanitulosta)";
+      } else if (monthlyGross < 2500) {
+        groupShort = "1.–2. desiili (pienipalkkainen)";
+      } else if (monthlyGross < 3000) {
+        groupShort = "3. desiili";
+      } else if (monthlyGross < 3500) {
+        groupShort = "4. desiili";
+      } else if (monthlyGross < 4000) {
+        groupShort = "5. desiili (lähellä mediaania)";
+      } else if (monthlyGross < 4500) {
+        groupShort = "6. desiili";
+      } else if (monthlyGross < 5000) {
+        groupShort = "7. desiili";
+      } else if (monthlyGross < 5500) {
+        groupShort = "8. desiili";
+      } else if (monthlyGross < TOP_DECILE_MONTHLY) {
+        groupShort = "9. desiili";
+      } else {
+        groupShort = "10. desiili (ylin 10 %)";
+      }
+
+      let tagText, tagClass;
+      if (ratio < 0.6) {
+        tagText = "KÖYHYYSRISKI";
+        tagClass = "tag poverty";
+      } else if (inTopDecile) {
+        tagText = "YLIN 10 %";
+        tagClass = "tag top";
+      } else if (ratio >= 1.0) {
+        tagText = "YLI MEDIAANIN";
+        tagClass = "tag yli";
+      } else if (ratio >= 0.85) {
+        tagText = "LÄHELLÄ MEDIAANIA";
+        tagClass = "tag mediaani";
+      } else {
+        tagText = "ALLE MEDIAANIN";
+        tagClass = "tag mediaani";
+      }
+
+      return { ratio, groupShort, tagText, tagClass, inTopDecile };
+    }
+
+    function computeScenario(monthlyGross, opts) {
+      const {
+        ageGroup,
+        municipalityKey,
+        municipalCustomPct,
+        church,
+        membershipType,
+        fundMonthly,
+        unionMonthly
+      } = opts;
+
+      const grossMonthly = Math.max(0, monthlyGross);
+      const grossYearly = grossMonthly * 12;
+
+      const tyelRate = getTyelRate(ageGroup);
+      const tyelYearly = grossYearly * tyelRate;
+      const unempYearly = grossYearly * UNEMP_RATE;
+      const healthYearly = grossYearly * HEALTH_RATE;
+
+      const socialYearly = tyelYearly + unempYearly + healthYearly;
+
+      const taxable = Math.max(0, grossYearly - socialYearly - TULONHANKKIMIS_VAHENNYS);
+
+      const municipalRate = getMunicipalRate(municipalityKey, municipalCustomPct);
+      const churchRate = getChurchRate(municipalityKey, church);
+
+      const stateTax = stateTax2025(taxable);
+      const municipalTax = taxable * municipalRate;
+      const churchTax = taxable * churchRate;
+
+      const incomeTaxesYearly = stateTax + municipalTax + churchTax;
+
+      const membershipMonthly =
+        membershipType === "fund"
+          ? fundMonthly
+          : membershipType === "unionFund"
+          ? unionMonthly
+          : 0;
+      const membershipYearly = membershipMonthly * 12;
+
+      const totalDeductionsYearly = incomeTaxesYearly + socialYearly + membershipYearly;
+      const netYearly = grossYearly - totalDeductionsYearly;
+      const netMonthly = netYearly / 12;
+
+      const taxRate = grossYearly > 0 ? incomeTaxesYearly / grossYearly : 0;
+      const socialRate = grossYearly > 0 ? socialYearly / grossYearly : 0;
+      const totalRate = grossYearly > 0 ? totalDeductionsYearly / grossYearly : 0;
+
+      return {
+        grossMonthly,
+        grossYearly,
+        netMonthly,
+        netYearly,
+        netMonthlyBeforeMembership: (grossYearly - (incomeTaxesYearly + socialYearly)) / 12,
+        incomeTaxesYearly,
+        stateTax,
+        municipalTax,
+        churchTax,
+        tyelYearly,
+        unempYearly,
+        healthYearly,
+        membershipMonthly,
+        membershipYearly,
+        taxRate,
+        socialRate,
+        totalRate,
+        tyelRate,
+        municipalRate,
+        churchRate
+      };
+    }
+
+    function getOccupationInfo(monthlyGross) {
+      const g = monthlyGross || 0;
+      let bracketLabel = "–";
+      let jobs = [];
+
+      function set(label, arr) {
+        bracketLabel = label;
+        jobs = arr;
+      }
+
+      if (g < 1750) {
+        set("noin 1 500–1 749 €/kk", [
+          { title: "Siivooja / toimitilahuoltaja", level: "ammattikoulu" },
+          { title: "Ravintolatyöntekijä", level: "ammattikoulu" },
+          { title: "Kaupan kassamyyjä, osa-aikainen", level: "ammattikoulu / ei tutkintoa" },
+          { title: "Puutarhatyöntekijä / kesätyöntekijä", level: "ammattikoulu / ei tutkintoa" }
+        ]);
+      } else if (g < 2250) {
+        set("noin 1 750–2 249 €/kk", [
+          { title: "Varastotyöntekijä, kokoaikainen", level: "ammattikoulu" },
+          { title: "Lähihoitaja (usein matalapalkkainen)", level: "ammattikoulu" },
+          { title: "Päiväkodin avustaja / koulunkäynninohjaaja", level: "ammattikoulu" },
+          { title: "Bussinkuljettaja, aloitusvaihe", level: "ammattikoulu / ajokorttiluokka D" }
+        ]);
+      } else if (g < 2750) {
+        set("noin 2 250–2 749 €/kk", [
+          { title: "Lähihoitaja kokeneempi", level: "ammattikoulu" },
+          { title: "Palveluneuvoja asiakaspalvelussa", level: "ammattikoulu" },
+          { title: "Bussinkuljettaja kokeneempi", level: "ammattikoulu / ajokorttiluokka D" },
+          { title: "Teollisuuden prosessityöntekijä", level: "ammattikoulu" }
+        ]);
+      } else if (g < 3250) {
+        set("noin 2 750–3 249 €/kk", [
+          { title: "Sairaanhoitaja uran alussa", level: "AMK" },
+          { title: "Ensihoitaja", level: "AMK" },
+          { title: "Varhaiskasvatuksen opettaja", level: "yliopisto (kasvatustiede)" },
+          { title: "Poliisi", level: "Poliisiammattikorkeakoulu" },
+          { title: "Junior-ohjelmistokehittäjä", level: "AMK / yliopisto" }
+        ]);
+      } else if (g < 3750) {
+        set("noin 3 250–3 749 €/kk", [
+          { title: "Sairaanhoitaja muutaman vuoden kokemuksella", level: "AMK" },
+          { title: "Ohjelmistokehittäjä, 1–3 vuotta kokemusta", level: "AMK / yliopisto" },
+          { title: "Rakennustyöntekijä, ammattimies", level: "ammattikoulu" },
+          { title: "Sähköasentaja / LVI-asentaja", level: "ammattikoulu" },
+          { title: "Myyntineuvottelija B2B, peruspalkka + provisio", level: "ammattikoulu / AMK" }
+        ]);
+      } else if (g < 4250) {
+        set("noin 3 750–4 249 €/kk", [
+          { title: "Sovelluskehittäjä / ohjelmistokonsultti", level: "AMK / yliopisto" },
+          { title: "Myyntipäällikkö B2B", level: "AMK" },
+          { title: "Rakennusmestari / työnjohtaja", level: "AMK" },
+          { title: "Juristi, uran alkuvaihe", level: "oikeustieteen maisteri" },
+          { title: "Suunnitteluinsinööri", level: "AMK / yliopisto" }
+        ]);
+      } else if (g < 4750) {
+        set("noin 4 250–4 749 €/kk", [
+          { title: "Senior-ohjelmistokehittäjä", level: "AMK / yliopisto" },
+          { title: "Insinööri suunnittelussa tai projekteissa", level: "AMK / yliopisto" },
+          { title: "Erityisasiantuntija (esim. data, talous)", level: "AMK / yliopisto" },
+          { title: "Palkanlaskennan tai taloushallinnon asiantuntija", level: "AMK" },
+          { title: "Kokenut poliisi / rikostutkija", level: "Poliisiammattikorkeakoulu" }
+        ]);
+      } else if (g < 5500) {
+        set("noin 4 750–5 499 €/kk", [
+          { title: "Lead developer / tekninen arkkitehti", level: "yliopisto" },
+          { title: "Yksikön esihenkilö sote-alalla", level: "AMK / ylempi AMK" },
+          { title: "Kokenut asiantuntija finanssialalla", level: "yliopisto" },
+          { title: "Projektipäällikkö IT- tai rakennushankkeissa", level: "AMK / yliopisto" },
+          { title: "Valtion hallinnon juristi", level: "oikeustieteen maisteri" }
+        ]);
+      } else if (g < 6500) {
+        set("noin 5 500–6 499 €/kk", [
+          { title: "Kokenut teknologia-arkkitehti", level: "yliopisto" },
+          { title: "Pieni tiimiesihenkilö IT:ssä", level: "AMK / yliopisto" },
+          { title: "Senior-salkunhoitaja / analyytikko", level: "yliopisto" },
+          { title: "Suuren kunnan palvelupäällikkö", level: "ylempi AMK / yliopisto" },
+          { title: "Kokenut erikoisasiantuntija (esim. juridiikka, verotus)", level: "yliopisto" }
+        ]);
+      } else if (g < 7500) {
+        set("noin 6 500–7 499 €/kk", [
+          { title: "Terveyskeskuslääkäri / erikoistuva lääkäri, paljon päivystystä", level: "lääketieteen lisensiaatti" },
+          { title: "Suuren IT-tuotteen pääarkkitehti", level: "yliopisto" },
+          { title: "Suuren yksikön esihenkilö (esim. palvelupäällikkö)", level: "AMK / yliopisto" },
+          { title: "Pankin tai vakuutusyhtiön johtava asiantuntija", level: "yliopisto" },
+          { title: "Kokenut konsultti päävastuullisena projekteista", level: "yliopisto / MBA" }
+        ]);
+      } else if (g < 9000) {
+        set("noin 7 500–8 999 €/kk", [
+          { title: "Erikoislääkäri yksityisellä sektorilla", level: "lääketieteen erikoislääkäri" },
+          { title: "CTO / teknologiajohtaja", level: "yliopisto" },
+          { title: "Konsultti partner-tasolla", level: "yliopisto / MBA" },
+          { title: "Suuren organisaation talousjohtaja (CFO)", level: "yliopisto" },
+          { title: "Kokenut asianajaja partner-tasolla", level: "oikeustieteen maisteri" }
+        ]);
+      } else {
+        set("9 000 €/kk ja yli", [
+          { title: "Toimitusjohtaja ja ylimmän johdon tehtävät", level: "yleensä korkeakoulututkinto + pitkä kokemus" },
+          { title: "Menestynyt yrittäjä", level: "koulutuspolut vaihtelevat" },
+          { title: "Huipputason erikoislääkäri / leikkaava kirurgi", level: "lääketieteen erikoislääkäri" },
+          { title: "Kansainvälinen huipputason konsultti / neuvonantaja", level: "yliopisto / MBA" },
+          { title: "Pörssiyhtiön johtoryhmän jäsen", level: "yliopisto + pitkä kokemus" }
+        ]);
+      }
+
+      return { bracketLabel, jobs };
+    }
+
+    function setup() {
+      const salaryRange = document.getElementById("salaryRange");
+      const salaryRangeValue = document.getElementById("salaryRangeValue");
+      const ageGroupSelect = document.getElementById("ageGroup");
+      const municipalitySelect = document.getElementById("municipalitySelect");
+      const municipalCustomRow = document.getElementById("municipalCustomRow");
+      const municipalCustomInput = document.getElementById("municipalCustom");
+      const churchRow = document.getElementById("churchRow");
+      const membershipRow = document.getElementById("membershipRow");
+      const fundRow = document.getElementById("fundRow");
+      const unionRow = document.getElementById("unionRow");
+      const fundFeeInput = document.getElementById("fundFee");
+      const unionFeeInput = document.getElementById("unionFee");
+      const currentSalaryInput = document.getElementById("currentSalary");
+      const clearCurrentBtn = document.getElementById("clearCurrent");
+      const hourlyGrossDisplay = document.getElementById("hourlyGrossDisplay");
+      const hourlyNetDisplay = document.getElementById("hourlyNetDisplay");
+      const themeToggleBtn = document.getElementById("themeToggle");
+
+      const netMonthlyDisplay = document.getElementById("netMonthlyDisplay");
+      const taxRateDisplay = document.getElementById("taxRateDisplay");
+      const netYearlyDisplay = document.getElementById("netYearlyDisplay");
+      const totalRateDisplay = document.getElementById("totalRateDisplay");
+      const barNet = document.getElementById("barNet");
+      const barTax = document.getElementById("barTax");
+
+      const infoToggle = document.getElementById("infoToggle");
+      const infoBox = document.getElementById("infoBox");
+      const infoStateTax = document.getElementById("infoStateTax");
+      const infoMunicipalTax = document.getElementById("infoMunicipalTax");
+      const infoChurchTax = document.getElementById("infoChurchTax");
+      const infoTyel = document.getElementById("infoTyel");
+      const infoUnemp = document.getElementById("infoUnemp");
+      const infoHealth = document.getElementById("infoHealth");
+      const infoMembership = document.getElementById("infoMembership");
+
+      const grossYearlyDisplay = document.getElementById("grossYearlyDisplay");
+      const medianRatioDisplay = document.getElementById("medianRatioDisplay");
+      const incomeGroupDisplay = document.getElementById("incomeGroupDisplay");
+      const incomeTag = document.getElementById("incomeTag");
+
+      const unionCard = document.getElementById("unionCard");
+      const netAfterMembershipDisplay = document.getElementById("netAfterMembershipDisplay");
+      const netBeforeMembershipDisplay = document.getElementById("netBeforeMembershipDisplay");
+      const membershipMonthCostDisplay = document.getElementById("membershipMonthCostDisplay");
+      const membershipYearDiffDisplay = document.getElementById("membershipYearDiffDisplay");
+      const membershipLabel = document.getElementById("membershipLabel");
+
+      const compareCard = document.getElementById("compareCard");
+      const deltaNetMonthlyDisplay = document.getElementById("deltaNetMonthlyDisplay");
+      const deltaGrossMonthlyDisplay = document.getElementById("deltaGrossMonthlyDisplay");
+      const deltaNetYearlyDisplay = document.getElementById("deltaNetYearlyDisplay");
+      const marginalTaxDisplay = document.getElementById("marginalTaxDisplay");
+      const marginalHelpText = document.getElementById("marginalHelpText");
+      const compareLabel = document.getElementById("compareLabel");
+      const compareSubtitle = document.getElementById("compareSubtitle");
+
+      const jobsList = document.getElementById("jobsList");
+      const jobBracketLabel = document.getElementById("jobBracketLabel");
+
+      let currentChurch = "none";
+      let currentMembership = "none";
+
+      // Teema käyttöön
+      initTheme(themeToggleBtn);
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          const now = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+          applyTheme(now);
+          themeToggleBtn.textContent = now === "dark" ? "🌙 Tumma" : "☀️ Vaalea";
+        });
+      }
+
+      // Lataa URL-parametrit
+      const urlState = readStateFromURL();
+      if (urlState.salary) salaryRange.value = urlState.salary;
+      if (urlState.current) currentSalaryInput.value = urlState.current;
+      if (urlState.age) ageGroupSelect.value = urlState.age;
+      if (urlState.muni) municipalitySelect.value = urlState.muni;
+      if (urlState.muni === "oma") {
+        municipalCustomRow.classList.remove("hidden");
+      }
+      if (urlState.muniCustom) municipalCustomInput.value = urlState.muniCustom;
+
+      function readMembershipFees() {
+        const fund = parseFloat((fundFeeInput.value || "").toString().replace(",", ".")) || 0;
+        const union = parseFloat((unionFeeInput.value || "").toString().replace(",", ".")) || 0;
+        return { fund, union };
+      }
+
+      function readCurrentSalary() {
+        const val = (currentSalaryInput.value || "").toString().replace(",", ".");
+        const n = parseFloat(val);
+        if (!isFinite(n) || n <= 0) return null;
+        return n;
+      }
+
+      if (urlState.church) {
+        currentChurch = urlState.church;
+        churchRow.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+        const target = [...churchRow.querySelectorAll(".chip")].find(
+          (c) => c.dataset.church === urlState.church
+        );
+        if (target) target.classList.add("active");
+      }
+
+      if (urlState.membership) {
+        currentMembership = urlState.membership;
+        membershipRow.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+        const target = [...membershipRow.querySelectorAll(".chip")].find(
+          (c) => c.dataset.membership === urlState.membership
+        );
+        if (target) target.classList.add("active");
+
+        if (currentMembership === "fund") {
+          fundRow.classList.remove("hidden");
+          unionRow.classList.add("hidden");
+        } else if (currentMembership === "unionFund") {
+          unionRow.classList.remove("hidden");
+          fundRow.classList.add("hidden");
+        } else {
+          fundRow.classList.add("hidden");
+          unionRow.classList.add("hidden");
+        }
+      }
+
+      if (urlState.fund) fundFeeInput.value = urlState.fund;
+      if (urlState.union) unionFeeInput.value = urlState.union;
+
+      function updateJobs(grossMonthly) {
+        const info = getOccupationInfo(grossMonthly);
+        jobBracketLabel.textContent = info.bracketLabel;
+        jobsList.innerHTML = "";
+        info.jobs.forEach((j) => {
+          const li = document.createElement("li");
+          li.innerHTML = `${j.title} <span class="level">– ${j.level}</span>`;
+          jobsList.appendChild(li);
+        });
+      }
+
+      function update() {
+        const grossMonthly = parseFloat(salaryRange.value);
+        salaryRangeValue.textContent = euro(grossMonthly);
+
+        const ageGroup = ageGroupSelect.value;
+        const muniKey = municipalitySelect.value;
+        const muniCustom = municipalCustomInput.value;
+
+        const { fund, union } = readMembershipFees();
+
+        const scenario = computeScenario(grossMonthly, {
+          ageGroup,
+          municipalityKey: muniKey,
+          municipalCustomPct: muniCustom,
+          church: currentChurch,
+          membershipType: currentMembership,
+          fundMonthly: fund,
+          unionMonthly: union
+        });
+
+        const incomeInfo = classifyIncome(scenario.grossMonthly);
+
+        netMonthlyDisplay.innerHTML =
+          euro(scenario.netMonthly) + ' <span class="unit">€/kk</span>';
+        netYearlyDisplay.textContent = euro(scenario.netYearly);
+
+        grossYearlyDisplay.innerHTML =
+          euro(scenario.grossYearly) + ' <span class="unit">€/v</span>';
+
+        const taxRatePct = scenario.taxRate * 100;
+        taxRateDisplay.innerHTML =
+          taxRatePct.toLocaleString("fi-FI", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          }) + ' <span class="unit">%</span>';
+
+        const totalRatePct = scenario.totalRate * 100;
+        totalRateDisplay.textContent = pct(totalRatePct, 1);
+
+        const netShare = scenario.grossMonthly > 0
+          ? (scenario.netMonthly / scenario.grossMonthly) * 100
+          : 0;
+        const netShareClamped = Math.max(0, Math.min(netShare, 100));
+        barNet.style.width = netShareClamped + "%";
+        barTax.style.width = (100 - netShareClamped) + "%";
+
+        if (incomeInfo.inTopDecile) barNet.classList.add("fire");
+        else barNet.classList.remove("fire");
+
+        infoStateTax.textContent = euro(scenario.stateTax);
+        infoMunicipalTax.textContent = euro(scenario.municipalTax);
+        infoChurchTax.textContent = euro(scenario.churchTax);
+        infoTyel.textContent = euro(scenario.tyelYearly);
+        infoUnemp.textContent = euro(scenario.unempYearly);
+        infoHealth.textContent = euro(scenario.healthYearly);
+        infoMembership.textContent = euro(scenario.membershipYearly);
+
+        if (incomeInfo.ratio) {
+          medianRatioDisplay.textContent =
+            incomeInfo.ratio.toLocaleString("fi-FI", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }) + " x";
+        } else {
+          medianRatioDisplay.textContent = "– x";
+        }
+        incomeGroupDisplay.textContent = incomeInfo.groupShort;
+        incomeTag.textContent = incomeInfo.tagText;
+        incomeTag.className = incomeInfo.tagClass;
+
+        // Ammattiesimerkit
+        updateJobs(scenario.grossMonthly);
+
+        // Tuntipalkat
+        const HOURS = 161.25;
+        if (scenario.grossMonthly > 0) {
+          hourlyGrossDisplay.textContent = (scenario.grossMonthly / HOURS)
+            .toFixed(2)
+            .replace(".", ",");
+        } else {
+          hourlyGrossDisplay.textContent = "–";
+        }
+        if (scenario.netMonthly > 0) {
+          hourlyNetDisplay.textContent = (scenario.netMonthly / HOURS)
+            .toFixed(2)
+            .replace(".", ",");
+        } else {
+          hourlyNetDisplay.textContent = "–";
+        }
+
+        // Liitto / kassa -kortti
+        if (currentMembership === "none") {
+          unionCard.classList.add("hidden");
+        } else {
+          unionCard.classList.remove("hidden");
+          netBeforeMembershipDisplay.textContent = euro(
+            scenario.netMonthlyBeforeMembership
+          );
+          netAfterMembershipDisplay.innerHTML =
+            euro(scenario.netMonthly) + ' <span class="unit">€/kk</span>';
+          membershipMonthCostDisplay.textContent = euro2(
+            scenario.membershipMonthly
+          );
+          membershipYearDiffDisplay.textContent = euro(
+            scenario.membershipYearly
+          );
+          membershipLabel.textContent =
+            currentMembership === "fund"
+              ? "Vain työttömyyskassa"
+              : "Liitto + kassa";
+        }
+
+        // Vertailu nykyiseen bruttoon
+        const currentGross = readCurrentSalary();
+        if (currentGross && currentGross > 0) {
+          const currentScenario = computeScenario(currentGross, {
+            ageGroup,
+            municipalityKey: muniKey,
+            municipalCustomPct: muniCustom,
+            church: currentChurch,
+            membershipType: currentMembership,
+            fundMonthly: fund,
+            unionMonthly: union
+          });
+
+          const deltaGross = scenario.grossMonthly - currentScenario.grossMonthly;
+          const deltaNet = scenario.netMonthly - currentScenario.netMonthly;
+          const deltaNetYear = deltaNet * 12;
+
+          deltaGrossMonthlyDisplay.textContent = euro(deltaGross);
+          deltaNetMonthlyDisplay.innerHTML =
+            euro(deltaNet) + ' <span class="unit">€/kk</span>';
+          deltaNetYearlyDisplay.textContent = euro(deltaNetYear);
+
+          const absDeltaNet = Math.abs(deltaNet);
+
+          let marginalText = "– %";
+          let helpText = "Korotuksen vaikutus riippuu bruttoerosta.";
+
+          if (Math.abs(deltaGross) > 1) {
+            let marg = 1 - deltaNet / deltaGross;
+            marg = Math.max(0, Math.min(marg * 100, 100));
+            const jää = 100 - marg;
+            marginalText = pct(marg, 1);
+            helpText =
+              "Arvio: tästä palkankorotuksesta noin " +
+              jää.toFixed(1).replace(".", ",") +
+              " % jää sinulle nettopalkkana.";
+          }
+
+          marginalTaxDisplay.textContent = marginalText;
+          marginalHelpText.textContent = helpText;
+          compareLabel.textContent =
+            "Nykyinen brutto: " + euro(currentScenario.grossMonthly) + "/kk";
+
+          compareCard.classList.remove("compare-up-small", "compare-up-big", "compare-down");
+          if (deltaNet > 1) {
+            if (absDeltaNet >= 500) {
+              compareCard.classList.add("compare-up-big");
+            } else {
+              compareCard.classList.add("compare-up-small");
+            }
+          } else if (deltaNet < -1) {
+            compareCard.classList.add("compare-down");
+          }
+
+          compareCard.classList.remove("hidden");
+        } else {
+          compareCard.classList.add("hidden");
+        }
+
+        // Päivitä URL
+        updateURLFromState({
+          salary: grossMonthly,
+          current: currentGross || "",
+          age: ageGroup,
+          muni: muniKey,
+          muniCustom: muniCustom,
+          church: currentChurch,
+          membership: currentMembership,
+          fund: fund,
+          union: union
+        });
+      }
+
+      salaryRange.addEventListener("input", update);
+      ageGroupSelect.addEventListener("change", update);
+      municipalitySelect.addEventListener("change", () => {
+        if (municipalitySelect.value === "oma") {
+          municipalCustomRow.classList.remove("hidden");
+        } else {
+          municipalCustomRow.classList.add("hidden");
+        }
+        update();
+      });
+      municipalCustomInput.addEventListener("input", update);
+      fundFeeInput.addEventListener("input", update);
+      unionFeeInput.addEventListener("input", update);
+      currentSalaryInput.addEventListener("input", update);
+
+      clearCurrentBtn.addEventListener("click", () => {
+        currentSalaryInput.value = "";
+        update();
+      });
+
+      churchRow.querySelectorAll(".chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          churchRow.querySelectorAll(".chip").forEach((c) =>
+            c.classList.remove("active")
+          );
+          chip.classList.add("active");
+          currentChurch = chip.dataset.church;
+          update();
+        });
+      });
+
+      membershipRow.querySelectorAll(".chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          membershipRow.querySelectorAll(".chip").forEach((c) =>
+            c.classList.remove("active")
+          );
+          chip.classList.add("active");
+          currentMembership = chip.dataset.membership;
+
+          if (currentMembership === "fund") {
+            fundRow.classList.remove("hidden");
+            unionRow.classList.add("hidden");
+          } else if (currentMembership === "unionFund") {
+            unionRow.classList.remove("hidden");
+            fundRow.classList.add("hidden");
+          } else {
+            fundRow.classList.add("hidden");
+            unionRow.classList.add("hidden");
+          }
+
+          update();
+        });
+      });
+
+      infoToggle.addEventListener("click", () => {
+        infoBox.classList.toggle("hidden");
+      });
+
+      salaryRangeValue.textContent = euro(parseFloat(salaryRange.value));
+      if (municipalitySelect.value !== "oma") {
+        municipalCustomRow.classList.add("hidden");
+      }
+      if (currentMembership === "none") {
+        fundRow.classList.add("hidden");
+        unionRow.classList.add("hidden");
+      }
+
+      update();
+    }
+
+    document.addEventListener("DOMContentLoaded", setup);
+  </script>
+</body>
+</html>
